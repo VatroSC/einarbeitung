@@ -30,25 +30,64 @@
 ## Fragen zur Objektorientierung
 
 1. Warum verwendet man Objektorientierung?
+    Objektorientierung wird hauptsächlich verwendet, um die Komlexität der entstehenden Programme zu verringern, große Programme einfacher zu gestalten durch die Unterteilung von Funktionen. Diese vorteile sind; Wiederverwendbarkeit von Code, Modularität, erleichterte Wartung sowie Lesbarkeit und Verständlichkeit des Codes
+
 2. Welche weiteren Vorgehensweisen gibt es?
+    Neben oop gibt es noch; 
+        Procedurales(Basiert auf einer Abfolge oder Schritten), 
+        Funktionales(Schwerpunkt auf reiner, Unverändlichkeit und der Vermeidung von Seiteneffekten),
+        Deklaratives(Beschreibt "was" das Programm tun soll, anstat "wie" es dies tun soll.),
+        Logisches(Basiert auf formaler Logik; Regeln & Fakten),
+
 3. Was ist ein Objekt und was eine Klasse?
+    Klasse; ist wie eine Schablone/ Bauplan, der beschreibt, welche Eigenschaften(Attribute) und Werchaltensweisen(Methoden) Objekte haben sollen.
+    Objekt; ist eine Instanz einer Klasse(ein konkretes Exemplar), das auf der Schablone der Klasse basiert. Es hat alle eigenschaften und Verhaltensweisen der Klasse(mit spezifischen werten)
+
 4. Was versteht man unter Kapselung?
+    Encapsulation verhindert direkten zugriff auf die Componenten(Attribute & Methoden) des Objektes.
+    # Beispiel
+    def __init__(self, kontostand):
+        self.__kontostand = kontostand
+
 5. Was ist Vererbung?
+    Inheritance; ist ein Prinzip der oop, bei dem eine Klasse die eigenschaften einer anderen Klasse etbt(Kinklasse erbt von Elternklasse). Die "Kinderklasse" kann die geerbten Elemente erweitern oder überschreiben.
+
 6. Was versteht man unter Refactoring?
+    Refactoring bezeichnet den Prozess der Verbesserung des Quellcodes, ohne das Verhalten der Software zu verändern. Ziel ist es, den Code lesbarer, wartbarer und effizienter zu machen.
+
 7. Welche Rolle spielt das Refactoring bzgl. der Wiederverwendung von Code?
+    Refactoring; hilft den Code wiedervewenbar zu machen, indem es die Struktur verbessert und redudante Teile eliminiert.
+    DRY: Vermeidung von Duplikaten
+    Modularisierung; Zerlege den langen(molithischen) Code in kleinere, spezialisierte Module, Klassen oder Funktionen.
+
 8. Für was gibt es die `__init__`-Funktion in einer Klasse?
+    Die __init__ funktion ist ein Konstruktor in Python. Sie dient zur initialiesierung von Attributen und zur vorbereitung des Objektes für die Nutzung.
+
 9. Für was braucht man den `self` Parameter?
+    Der .self Parameter verweist auf das aktuelle Objekt(Instanz), das die Methode aufruft, und ermöglicht den Zugriff auf die Attribute und Methoden dieses spezifischen Objektes.
+
 10. Wie schreibt man einzeilige und mehrzeilige Kommentare in Python?
+    Einzeiliger Kommentar:      # This is the way
+    Mehrzeiliger Kommentar:     '''
+                                May
+                                the Force be with
+                                You
+                                '''
+
 11. Welche weiteren objektorientierten Programmiersprachen neben Python gibt es? (3 Beispiele)
+    Java; verwenden wir in der Berufsschule
+    C++; verwende ich im versuch ein Spiel zu schreiben
+    C#; Modern und stark in der Windows-entwicklung(sagt das Internet)
+
 12. Korrigiere die Fehlerhaften Skripte.
 
 ### Code 1
 ```python
 class MyClass:
-    def __init__(name):
+    def __init__(self, name):
         self.name = name
 
-    def greet():
+    def greet(self):
         print(f"Hello, {self.name}")
 
 obj = MyClass("Alice")
@@ -59,7 +98,7 @@ obj.greet()
 ### Code 2
 ```python
 def say_hello():
-print("Hello, World!")  
+    print("Hello, World!")  
 
 say_hello()
 ```
@@ -67,15 +106,15 @@ say_hello()
 
 ### Code 3 
 ```python
-x = 10
-if x = 5:   
+x = 5
+if x == 5:   
     print("x is 5")
 ```
 
 
 ### Code 4
 ```python
-numbers = (1, 2, 3, 4, 5) 
+numbers = [1, 2, 3, 4, 5] 
 for i in range(len(numbers)):
     numbers[i] = numbers[i] * 2
 ```
@@ -84,5 +123,5 @@ for i in range(len(numbers)):
 ### Code 5
 ```python
 values = [1, 2, 3, 4, 5]
-a, b, c = values
+a, b, c = values[:3] # oder a, b, c = valuses[0], valuses[1], valuses[2],
 ```
