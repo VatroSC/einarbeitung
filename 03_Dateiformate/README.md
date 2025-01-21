@@ -1,6 +1,6 @@
 ## Aufgabenbeschreibung
 
-1. Erstelle aus den Daten eine YAML-Datei.
+1. Erstelle aus den Json Daten eine YAML-Datei.
 2. Erstelle ein XML-File aus der JSON.
 3. Validiere das XML-File mittels XSD.
 
