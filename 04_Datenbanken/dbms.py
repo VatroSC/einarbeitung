@@ -21,7 +21,7 @@ def addsquad():
     squadName = input("Squad Name:\t")
     homeTown = input("Heimatstadt:\t")        
     formed = int(input("Gründungsjahr:\t"))
-    amigood = input("Status wie z.B. 'gut', 'neutral', 'böse'\n\t+")
+    amigood = input("Status wie z.B. 'gut', 'neutral', 'böse'\n\t")
     secretBase = input("Geheinbase:\t")
     active = bool(int(input("Aktiv? (1 = JA oder 0 = Nein)"))) 
     mc.execute(in_squad, (squadName, homeTown, formed, amigood, secretBase, active)) #? was mit squd id? suto generiert mit AUTO_INCREMENT?
@@ -140,12 +140,16 @@ def uppower():
 
 # Benutzer eingabe ---------------------------------------------------------------
 while True:
-    wahl = input(f"Möchtest du:\n\tHinzufügen (1)\tLöschen (2)\tÄndern (3)\tAnzeige (4)\tProgram beenden (0)\n\n")
+    wahl = input(f"Möchtest du:\tHinzufügen (1)\tLöschen (2)\tÄndern (3)\tAnzeige (4)\tProgram beenden (0)\n\n")
     if wahl == "0":
-        break 
+        sicher = input("Sicher? (j/n):")
+        if sicher.lower == "j":
+            break 
     # Hinzufügen
     if wahl == "1":
-        hinzu = input(f"Was willst du hinzufügen:\n\tSquad (1)\n\tMember (2)\n\tPower (3)\n\n")
+        hinzu = input(f"Was willst du hinzufügen:\tSquad (1)\tMember (2)\tPower (3)\tProgram beenden (0)\n\n")
+        if hinzu == "0":
+            continue
         if hinzu == "1":
             try:
                 addsquad()
@@ -166,7 +170,9 @@ while True:
     
     # Löschen
     if wahl == "2":
-        loeschen = input(f"Was willst du löschen:\n\tSquad (1)\n\tMember (2)\n\tPower (3)\n\n")
+        loeschen = input(f"Was willst du löschen:\tSquad (1)\tMember (2)\tPower (3)\tProgram beenden (0)\n\n")
+        if loeschen == "0":
+            continue
         if loeschen == "1":
             try:
                 delsquad()
@@ -187,7 +193,9 @@ while True:
 
     # Ändern
     if wahl == "3":
-        change = input(f"Was willst du Ändern:\n\tSquad (1)\n\tMember (2)\n\tPower (3)\n\n")
+        change = input(f"Was willst du Ändern:\tSquad (1)\tMember (2)\tPower (3)\tProgram beenden (0)\n\n")
+        if change == "0":
+            continue
         if change == "1":
             try:
                 upsquad()
@@ -209,12 +217,7 @@ while True:
         # Anzeigen
     if wahl == "4":
         alldata = """
-        SELECT Squad.squadName, Member.name AS memberName, Power.powerName 
-        FROM Squad 
-        INNER JOIN Member 
-        ON Squad.sid = Member.sid 
-        INNER JOIN Power 
-        ON Member.mid = Power.mid
+        SELECT * FROM Squad INNER JOIN Member ON Squad.sid WHERE Squad.sid = Member.sid
         """
         mc.execute(alldata)
         
