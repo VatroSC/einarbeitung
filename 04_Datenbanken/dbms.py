@@ -32,11 +32,16 @@ def addmember():
     INSERT INTO Member (name, age, secretIdentity, sid)
     VALUE (%s, %s, %s, %s)
     """
+    squadsid = """
+    SELECT Squad.squadName, Squad.sid FROM Squad
+    """
+    print(f"Squad liste:\n\n{squadsid}")
     print("Bitte geben sie die Details für den Member ein:")
     name = input("Helden Name:\t")
     age = input("Alter:\t")
     secretIdentity = input("Was ist seine geheime Identität:\t")
-    mc.execute(in_member, (name, age, secretIdentity))
+    sid = int(input("Zu welchem Squad soll der member hin?\ngib die (sid) nummer ein\t"))
+    mc.execute(in_member, (name, age, secretIdentity, sid))
     mydb.commit()
     print(f"Du hast {name} hinzugefügt.")
 def addpower():
@@ -44,37 +49,41 @@ def addpower():
     INSERT INTO Power (powerName, mid)
     VALUE (%s, %s)
     """
-    print("Bitte geben sie Powers die der Member hat ein:")
-    powerName = input(f"Geb die Powers ein (mit , endet eine power und fängt die nächste an):\n\n\t")
-    powerName = powerName.split(",")
-    for power in powerName:
-        mc.execute(in_power, (power, in_power.mid))
-    #mc.execute(in_power, (powerName))
+    memberid = """
+    SELECT Member.name, Member.mid FROM Member
+    """
+    print(f"Member liste:\n\n{memberid}")
+    mid = int(input(f"Zu welchen Member willst du neue Powers hinzufuegen\n\ntrage die (mid) nummer ein:\t")) # keine umlaute auf heim Tastatur
+    powerin = input(f"Geben sie die Powers ein die der Member haben sollte:\n\n(mit , endet eine power und fängt die nächste an):\n\n")
+    powers = powerin.split(",")
+    for power in powers:
+        power = power.strip() # del "Whitespace"
+        mc.execute(in_power, (power, mid))
     mydb.commit()
 
     # User deletes
 def delsquad():
     del_squad = """
-    DELETE FROM Squad WHERE squadName=%s OR homeTown=%s OR formed=%s OR amigood=%s OR secretBase=%s OR active="1" OR active="0";
+    DELETE FROM Squad WHERE squadName=%s
     """
     mc.execute("SELECT squadName FROM Squad")
     squads = mc.fetchall()
     for squad in squads:
         print(f"Welchen Squad möchtest do löschen?\n\n{squad}")
     squadName = input("Squad Name:\t")
-    mc.execute(del_squad, (squadName))
+    mc.execute(del_squad, (squadName,))
     mydb.commit()
     print(f"{squadName} wude für immer gelöscht")
 def delmember():
     del_member = """
-    DELETE FROM Member WHERE name=%s OR age=%s OR secretIdentity=%s
+    DELETE FROM Member WHERE name=%s
     """
     mc.execute("SELECT name FROM Member")
     members = mc.fetchall()
     for member in members:
         print(f"Welchen Member Möchtest du löschen?\n\n {member}")
     name = input("Member Name:\t")
-    mc.execute(del_member, (name))
+    mc.execute(del_member, (name,))
     mydb.commit()
 def delpower():
     del_power = """
@@ -86,7 +95,9 @@ def delpower():
         print(f"Welche powers möchtest du löschen?\n\n {power}") 
     powerName = input(f"Powers (mit , endet eine power und fängt die nächste an):\n\t")
     powerName = powerName.split(",")
-    mc.execute(del_power, (powerName))
+    for power in powers:
+        power = power.strip()
+        mc.execute(del_power, (power,))
     mydb.commit()
 
     # User updates/changes
@@ -100,14 +111,22 @@ def upsquad():
         amigood =%s,
         secretBase =%s,
         active ="%s"
+    WHERE sid="%s"
     """
-    mc.execute("SELECT squadName FROM Squad")
+    mc.execute("SELECT squadName, sid FROM Squad")
     squads = mc.fetchall()
     for squad in squads:
-        print(f"Welchen Squad möchtest do umbenenen?\n\n{squad}")
-    squadName = input("Squad Name:\t")
-    mc.execute(up_squad, (squadName))
+        print(f"Squad liste:\n\n{squad}")
+    sid = int(input(f"Welchen Squad (sid ) moechtest do aendern?\t"))
+    newsquadName = input("Squad Name:\t")
+    newhomeTown = input("Neue Heimatstadt:\t")
+    newformed = int(input(f"Neues Gruendungsjahr(Zahl):\t"))
+    newamigood = input(f"Status (gut/boese/neutral):\t")
+    newsecretBase = input(f"Neue Geheimbase:\t")
+    newactive = bool(int(input(f"Aktiv? (1 = JA, 0 = NEIN):\t")))
+    mc.execute(up_squad, (newsquadName, newhomeTown, newformed, newamigood, newsecretBase, newactive, sid))
     mydb.commit()
+    print(f"\n\nSquad aktualisiert.")
 def upmember():
     up_member = """
     UPDATE Member
@@ -120,23 +139,29 @@ def upmember():
     mc.execute("SELECT Squad.squadName, Member.name FROM Member INNER JOIN Squad ON Member.sid = Squad.sid") #? I do not know if this is good
     members = mc.fetchall() 
     for member in members:
-        print(f"Welchen Member möchtest do umbenenen?\n\n{member}")
-    name = input("Member Name:\t")
-    mc.execute(up_member, (name))
+        print(f"Member liste:\n\n{member}")
+    mid = int(input(f"Welchen Member (mid) moechtest du aendern?\t"))
+    newname = input("Member Name:\t")
+    newage = int(input(f"Neues Alter:\t"))
+    newsecretIdentity = input(f"Neue Secret Identity:\t")
+    mc.execute(up_member, (newname, newage, newsecretIdentity, mid))
     mydb.commit()
+    print("\n\nMember aktualisiert.")
 def uppower():
     up_power = """
-    SET
-        powerName =%s
+    WHERE Power
+    SET powerName =%s
     WHERE pid=%s
     """
     mc.execute("SELECT Member.name, Power.powerName FROM Member INNER JOIN Power ON Member.mid = Power.mid")
     powers = mc.fetchall() 
     for power in powers:
-        print(f"Welchen Power möchtest do umbenenen?\n\n{power}")
-    name = input("Power Name:\t")
-    mc.execute(up_power, (power))
+        print(f"Power liste:\n\n{power}")
+    pid = int(input(f"Welche Power (pid) moechtest du arndern?\t"))
+    newname = input("Power Name:\t")
+    mc.execute(up_power, (newname, pid))
     mydb.commit()
+    print("\n\nPower aktualisiert.")
 
 # Benutzer eingabe ---------------------------------------------------------------
 while True:
@@ -214,11 +239,17 @@ while True:
         else:
             print(f"hmm... WUT!!! *up() geht nicht")   
 
-        # Anzeigen
+        # Anzeigen #todo show all merged table
     if wahl == "4":
         alldata = """
-        SELECT * FROM Squad INNER JOIN Member ON Squad.sid WHERE Squad.sid = Member.sid
+            SELECT Squad.*, Member.*, Power.*
+            FROM Squad
+            JOIN Member ON Squad.sid = Member.sid
+            JOIN Power ON Member.mid = Power.mid
         """
         mc.execute(alldata)
+        rows = mc.fetchall()
+        for row in rows:
+            print(row)
         
 #todo ( ˘▽˘)っ♨ヘ(￣ω￣ヘ)
