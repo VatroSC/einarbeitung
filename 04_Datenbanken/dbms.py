@@ -1,5 +1,6 @@
 # dbms == Datenbank Management System
 import mysql.connector
+from tabulate import tabulate
 
 mydb = mysql.connector.connect(
     host = "localhost",
@@ -249,7 +250,7 @@ while True:
         """
         mc.execute(alldata)
         rows = mc.fetchall()
-        for row in rows:
-            print(row)
+        columns = [desc[0] for desc in mc.description]
+        print(tabulate(rows, headers=columns, tablefmt="psql"))
         
 #todo ( ˘▽˘)っ♨ヘ(￣ω￣ヘ)
