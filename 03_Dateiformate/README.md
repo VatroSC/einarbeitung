@@ -46,4 +46,4 @@
     Eine XML-Datei erinert in ihrem Aufbau an HTML und an Baustrukturen in der Informatik.
 
 9. Was bedeutet Parsen?
-    maschinenlesbare Daten analysieren, segmentieren und codieren.
+    Parsen ist eher der Vorgang, um Daten aus anderen Dateiformaten (z.B. JSON) in eine für die Maschine verständliche Datenstruktur zu bringen (z.B. dict in Python)
