@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<!--  definierung der einfachen(Globalen) elementen -->
+<xs:element name="squadName" type="xs:string"/>
+<xs:element name="homeTown" type="xs:string"/>
+<xs:element name="formed" type="xs:integer"/>
+<xs:element name="status" type="xs:string"/>
+<xs:element name="secretBase" type="xs:string"/>
+<xs:element name="active" type="xs:boolean"/>
+<xs:element name="name" type="xs:string"/>
+<xs:element name="age" type="xs:integer"/>
+<xs:element name="secretIdentity" type="xs:string"/>
+<xs:element name="powers">
+    <xs:complexType>
+        <xs:sequence>
+           <xs:element name="item" type="xs:string" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
+
+<!-- das "member" element -->
+<xs:element name="members">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="item" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="name"/>
+                        <xs:element ref="age"/>
+                        <xs:element ref="secretIdentity"/>
+                        <xs:element ref="powers"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
+
+<!-- das "item"(squad) element -->
+<xs:element name="item">
+    <xs:complexType>
+        <xs:all>
+            <xs:element ref="squadName"/>
+            <xs:element ref="homeTown"/>
+            <xs:element ref="formed"/>
+            <xs:element ref="status"/>
+            <xs:element ref="secretBase"/>
+            <xs:element ref="active"/>
+            <xs:element ref="members"/>
+        </xs:all>
+    </xs:complexType>
+</xs:element>
+
+<!-- das "root" element -->
+<xs:element name="root">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element ref="item" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
+
+</xs:schema>
+
+<!-- oder so geht es auch, aber ist nicht so schön
+<xs:element name="root">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="item" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="squadName" type="xs:string"/>
+                        <xs:element name="homeTown" type="xs:string"/>
+                        <xs:element name="formed" type="xs:integer"/>
+                        <xs:element name="status" type="xs:string"/>
+                        <xs:element name="secretBase" type="xs:string"/>
+                        <xs:element name="active" type="xs:boolean"/>
+                        <xs:element name="members">
+                            <xs:complexType>
+                                <xs:sequence>
+                                     <xs:element name="item" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                             <xs:sequence>
+                                                <xs:element name="name" type="xs:string"/>
+                                                <xs:element name="age" type="xs:integer"/>
+                                                <xs:element name="secretIdentity" type="xs:string"/>
+                                                 <xs:element name="powers">
+                                                     <xs:complexType>
+                                                         <xs:sequence>
+                                                            <xs:element name="item" type="xs:string" maxOccurs="unbounded"/>
+                                                         </xs:sequence>
+                                                     </xs:complexType>
+                                                 </xs:element>
+                                             </xs:sequence>
+                                        </xs:complexType>
+                                     </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
+</xs:schema>
+
+-->
