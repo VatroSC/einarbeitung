@@ -168,9 +168,10 @@ def uppower():
 while True:
     wahl = input(f"Möchtest du:\tHinzufügen (1)\tLöschen (2)\tÄndern (3)\tAnzeige (4)\tProgram beenden (0)\n\n")
     if wahl == "0":
-        sicher = input("Sicher? (j/n):")
-        if sicher.lower == "j":
-            break 
+        break
+        #sicher = input("Sicher? (j/n):")
+        #if sicher.lower == "j":
+             
     # Hinzufügen
     if wahl == "1":
         hinzu = input(f"Was willst du hinzufügen:\tSquad (1)\tMember (2)\tPower (3)\tProgram beenden (0)\n\n")
@@ -240,10 +241,10 @@ while True:
         else:
             print(f"hmm... WUT!!! *up() geht nicht")   
 
-        # Anzeigen #todo show all merged table
-    if wahl == "4":
-        alldata = """
-            SELECT Squad.*, Member.*, Power.*
+        # Anzeigen 
+    if wahl == "4": 
+        alldata = """ 
+            SELECT Squad.squadName, Squad.sid, Member.name, Member.mid, Power.powerName, Power.mid
             FROM Squad
             JOIN Member ON Squad.sid = Member.sid
             JOIN Power ON Member.mid = Power.mid
@@ -252,5 +253,8 @@ while True:
         rows = mc.fetchall()
         columns = [desc[0] for desc in mc.description]
         print(tabulate(rows, headers=columns, tablefmt="psql"))
-        
+        # hie könnte ich noch mit der anzeige formatierung rumspielen
+
+
+
 #todo ( ˘▽˘)っ♨ヘ(￣ω￣ヘ)
