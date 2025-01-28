@@ -59,10 +59,12 @@ Die Daten(base.json) sollen in einer Datenbank gespeichert werden.
          Beispiele:  SUM()    SELECT SUM (Verkäufe) FROM (Bestellungen);
                      AVG()    SELECT AVG (Lohn) FROM (Mitarbeiter);
                      COUNT()  SELECT COUNT (*) FROM (Kunden);
-<!--
- (Kartesisch bezieht sich auf den französischen Philosophen René Descartes (lateinisch: Cartesius) 
- bezeichnet in der Mathematik und Geometrie ein Bezugssystem oder Konzepte, die auf seinen Arbeiten basieren. 
- 
- Kartesisches Produkt: Die Menge aller möglichen Paare aus zwei Mengen, z. B. 𝐴×𝐵={(𝑎,𝑏)∣𝑎∈𝐴,𝑏∈𝐵})
- -->
+
+   
+<!-- Anmerkungen
+   (Kartesisch bezieht sich auf den französischen Philosophen René Descartes (lateinisch: Cartesius) 
+   bezeichnet in der Mathematik und Geometrie ein Bezugssystem oder Konzepte, die auf seinen Arbeiten basieren. 
+   
+   Kartesisches Produkt: Die Menge aller möglichen Paare aus zwei Mengen, z. B. 𝐴×𝐵={(𝑎,𝑏)∣𝑎∈𝐴,𝑏∈𝐵})
+-->
  <!-- DB == Datenbank -->

@@ -1,7 +1,7 @@
 /*
 die db"secret_intel" hab ich manuel im terminal erstellt. 
 und mit "mysql -u root -p secret_intel < secretIntel.sql"
-die "TABLE" creiert
+die "TABLE" kreiert
 */
 USE secret_intel;
 
