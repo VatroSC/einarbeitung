@@ -27,3 +27,5 @@ Die Daten sollen in einer Datenbank gespeichert werden.
 - Was versteht man unter Datenintegrität?
 - Was ist Normalisierung?
 - Was sind Aggregationsfunktionen und welche gibt es? (3 Beispiele)
+
+.
